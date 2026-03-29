@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # SOS100 🚀
 
 Ett mikrotjänstbaserat system byggt i .NET och C# för att hantera utlåning, användare och kataloger. Projektet innehåller ett webbaserat användargränssnitt samt flera fristående API:er för att separera ansvarsområden som lån, påminnelser, rapportering och användarhantering.
@@ -12,3 +13,6 @@ Projektet är uppdelat i flera olika mikrotjänster och en webbklient:
 * **`UserService`** - Hanterar systemets användare.
 * **`ReminderApi`** - Tjänst för att hantera och skicka ut påminnelser, exempelvis för lån som förfaller.
 * **`ReportApi`** - Genererar rapporter och statistik baserat på data från systemet.
+=======
+# SOS100-React
+>>>>>>> e229fe4e8b453c8eaa4d273b99edf249221732d2
