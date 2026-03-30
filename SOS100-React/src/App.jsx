@@ -17,34 +17,57 @@ function App() {
     }
   };
 
+  const getMedal = (index) => {
+    if (index === 0) return "🥇";
+    if (index === 1) return "🥈";
+    if (index === 2) return "🥉";
+    return "";
+  };
+
+  const getCardClass = (index) => {
+    if (index === 0) return "podium-card gold";
+    if (index === 1) return "podium-card silver";
+    if (index === 2) return "podium-card bronze";
+    return "podium-card";
+  };
+
   return (
     <div className="container">
       <h1>Rapportcenter</h1>
-      <p>Här visas de mest utlånade objekten i bibliotekssystemet.</p>
+      <p className="subtitle">Mest utlånade objekt i bibliotekssystemet</p>
 
-      <button onClick={handleLoadReport}>Hämta mest utlånade objekt</button>
+      <button onClick={handleLoadReport}>Hämta rapport</button>
 
       {error && <p className="error">{error}</p>}
 
       {reportData.length > 0 && (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Titel</th>
-              <th>Antal lån</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportData.map((item) => (
-              <tr key={item.itemId}>
-                <td>{item.itemId}</td>
-                <td>{item.itemTitle}</td>
-                <td>{item.loanCount}</td>
-              </tr>
+        <>
+          <div className="podium-grid">
+            {reportData.slice(0, 3).map((item, index) => (
+              <div key={item.itemId} className={getCardClass(index)}>
+                <div className="medal">{getMedal(index)}</div>
+                <h2>{item.itemTitle}</h2>
+                <p>Placering: #{index + 1}</p>
+                <p>Antal lån: {item.loanCount}</p>
+              </div>
             ))}
-          </tbody>
-        </table>
+          </div>
+
+          {reportData.length > 3 && (
+            <div className="others-section">
+              <h2>Övriga placeringar</h2>
+              <div className="others-list">
+                {reportData.slice(3).map((item, index) => (
+                  <div key={item.itemId} className="other-card">
+                    <span className="ranking">#{index + 4}</span>
+                    <span className="title">{item.itemTitle}</span>
+                    <span className="count">{item.loanCount} lån</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
