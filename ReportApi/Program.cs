@@ -14,6 +14,16 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<IReportService, ReportService>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173", "http://localhost:5175")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddHttpClient<ILoanDataProvider, LoanDataProvider>(client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ExternalApis:LoanApiBaseUrl"]!);
@@ -44,6 +54,7 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference();
 }
 
+app.UseCors("AllowReactApp");
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
